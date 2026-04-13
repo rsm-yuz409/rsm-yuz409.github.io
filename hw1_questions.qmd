@@ -114,7 +114,9 @@ Using the bootstrapped standard error, the 95% confidence interval for $\theta$ 
 
 - Now, we will introduce the new theorem - The Central Limit Therom which means as the sample size becomes larger, the sampling distribution of the sample mean becomes approximately Normal, even when the underlying data are not Normally distributed. In this setting, that means the distribution of our estimator $\hat{\theta} = \bar{X}_A - \bar{X}_B$ should become more bell-shaped as the sample size increases.
 
-```{python echo=false}
+```{python}
+#| echo: false
+
 import numpy as np
 import matplotlib.pyplot as plt
 
