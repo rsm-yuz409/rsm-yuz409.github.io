@@ -45,7 +45,9 @@ print(B[:10])
 ## The Law of Large Numbers
 
 - The Law of Large Numbers states that as the sample size increases, the sample mean tends to get closer to the real population mean. In our case, this means that as we observe more data, our estimator $\hat{\theta} = \bar{X}_A - \bar{X}_B$ should get closer to the true difference $\theta = 0.04$.
-```{python echo=false}
+```{python}
+#| echo: false
+
 # Compute element-wise differences
 diff = A - B
 # Compute cumulative average
