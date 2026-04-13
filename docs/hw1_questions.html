@@ -253,7 +253,7 @@ window.Quarto = {
 </ul>
 <p>Suppose that the sign-up probability for CTA A is <span class="math inline">\(\pi_A = 0.22\)</span>, while for CTA B it is <span class="math inline">\(\pi_B = 0.18\)</span>. This means that the true difference in sign-up rates is <span class="math inline">\(\theta = 0.04\)</span>.</p>
 <p>To generate data, we simulate 1,000 observations for each group using a Bernoulli distribution. Each observation takes the value 1 if the user signs up and 0 otherwise. These simulated samples will be used throughout the rest of the analysis.</p>
-<div id="4745a201" class="cell" data-execution_count="1">
+<div id="8029faa8" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pi_A<span class="op">=</span><span class="fl">0.22</span></span>
@@ -273,7 +273,7 @@ window.Quarto = {
 <ul>
 <li>The Law of Large Numbers states that as the sample size increases, the sample mean tends to get closer to the real population mean. In our case, this means that as we observe more data, our estimator <span class="math inline">\(\hat{\theta} = \bar{X}_A - \bar{X}_B\)</span> should get closer to the true difference <span class="math inline">\(\theta = 0.04\)</span>.</li>
 </ul>
-<div id="d58c1a6b" class="cell" data-execution_count="2">
+<div id="d027de06" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute element-wise differences</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>diff <span class="op">=</span> A <span class="op">-</span> B</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute cumulative average</span></span>
@@ -306,7 +306,7 @@ window.Quarto = {
 <li>The next question is how precise that estimate is. A point estimate by itself does not tell us how much uncertainty there is, so we also want a standard error and a confidence interval.</li>
 </ul>
 <p>One way to estimate uncertainty is the bootstrap. The basic idea is to repeatedly resample from the observed data, with replacement, and recompute the statistic every time. The variation across those resampled estimates tells us how much our estimator tends to fluctuate. In this case, we use the standard deviation of the bootstrapped estimates as our estimate of the standard error.</p>
-<div id="3fb315b5" class="cell" data-execution_count="3">
+<div id="ae05b870" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Point estimate from the original sample</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>theta_hat <span class="op">=</span> A.mean() <span class="op">-</span> B.mean()</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap procedure</span></span>
@@ -354,7 +354,7 @@ Analytical SE: 0.018
 <ul>
 <li>Now, we will introduce the new theorem - The Central Limit Therom which means as the sample size becomes larger, the sampling distribution of the sample mean becomes approximately Normal, even when the underlying data are not Normally distributed. In this setting, that means the distribution of our estimator <span class="math inline">\(\hat{\theta} = \bar{X}_A - \bar{X}_B\)</span> should become more bell-shaped as the sample size increases.</li>
 </ul>
-<div id="64c0fc4e" class="cell" data-execution_count="4">
+<div id="13d6ea3f" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -417,7 +417,7 @@ z = \frac{\hat\theta - 0}{SE(\hat\theta)}
 <p>By the Central Limit Theorem, this statistic is approximately Normally distributed when the sample size is large. Under the null hypothesis, it follows a standard Normal distribution, which allows us to compute a p-value.</p>
 <p>We typically compare the p-value to a threshold of 0.05. If the p-value is below 0.05, we reject the null hypothesis and conclude that there is a meaningful difference. If it is above 0.05, we do not reject the null hypothesis, meaning the observed difference could be due to random variation.</p>
 <p>Although this is sometimes referred to as a t-test, in our setting the test statistic is approximately Normal rather than following an exact t-distribution. This is because our data come from Bernoulli distributions, not Normal distributions. However, for large sample sizes, the difference between the t-distribution and the Normal distribution becomes negligible, so using the Normal approximation is appropriate here.</p>
-<div id="33dace61" class="cell" data-execution_count="5">
+<div id="81d82d83" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute test statistic</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> theta_hat <span class="op">/</span> bootstrap_se</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -447,7 +447,7 @@ Y_i = \beta_0 + \beta_1 D_i + \varepsilon_i
 \]</span></p>
 <p>In this model, <span class="math inline">\(\beta_0\)</span> represents the average outcome for group B, which corresponds to the sign-up rate for CTA B. The term <span class="math inline">\(\beta_0 + \beta_1\)</span> represents the average outcome for group A, or the sign-up rate for CTA A. Therefore, <span class="math inline">\(\beta_1\)</span> captures the difference in sign-up rates between the two groups. In fact, the estimated coefficient <span class="math inline">\(\hat{\beta}_1\)</span> is numerically equal to the difference in sample means that we computed earlier, <span class="math inline">\(\hat{\theta} = \bar{X}_A - \bar{X}_B\)</span>.</p>
 <p>We now fit this regression using our simulated data:</p>
-<div id="ea744977" class="cell" data-execution_count="6">
+<div id="29c2c9d1" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -469,7 +469,7 @@ Dep. Variable:                      y   R-squared:                       0.000
 Model:                            OLS   Adj. R-squared:                 -0.000
 Method:                 Least Squares   F-statistic:                    0.1107
 Date:                Mon, 13 Apr 2026   Prob (F-statistic):              0.739
-Time:                        15:02:19   Log-Likelihood:                -1020.0
+Time:                        15:11:39   Log-Likelihood:                -1020.0
 No. Observations:                2000   AIC:                             2044.
 Df Residuals:                    1998   BIC:                             2055.
 Df Model:                           1                                         
@@ -499,7 +499,7 @@ Notes:
 <p>In practice, it can be tempting to check results early and often. For example, instead of waiting until all 1,000 users have been assigned to each group, we might look at the results after every 100 users and stop the experiment as soon as we see a statistically significant result.</p>
 <p>At first, this might seem reasonable, but it actually creates a problem. A single hypothesis test at the 0.05 level has a 5% chance of producing a false positive. However, when we repeatedly test the data as it accumulates, each additional check creates another chance to falsely reject the null hypothesis. As a result, the overall probability of making at least one false discovery becomes much higher than 5%.</p>
 <p>To see this more clearly, we can simulate this situation. We assume that there is actually no difference between the two groups, so the null hypothesis is true.</p>
-<div id="fb20a653" class="cell" data-execution_count="7">
+<div id="98b45f65" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>

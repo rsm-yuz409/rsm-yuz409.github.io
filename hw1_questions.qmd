@@ -45,7 +45,7 @@ print(B[:10])
 ## The Law of Large Numbers
 
 - The Law of Large Numbers states that as the sample size increases, the sample mean tends to get closer to the real population mean. In our case, this means that as we observe more data, our estimator $\hat{\theta} = \bar{X}_A - \bar{X}_B$ should get closer to the true difference $\theta = 0.04$.
-```{python}
+```{python echo=false}
 # Compute element-wise differences
 diff = A - B
 # Compute cumulative average
@@ -112,7 +112,7 @@ Using the bootstrapped standard error, the 95% confidence interval for $\theta$ 
 
 - Now, we will introduce the new theorem - The Central Limit Therom which means as the sample size becomes larger, the sampling distribution of the sample mean becomes approximately Normal, even when the underlying data are not Normally distributed. In this setting, that means the distribution of our estimator $\hat{\theta} = \bar{X}_A - \bar{X}_B$ should become more bell-shaped as the sample size increases.
 
-```{python}
+```{python echo=false}
 import numpy as np
 import matplotlib.pyplot as plt
 
