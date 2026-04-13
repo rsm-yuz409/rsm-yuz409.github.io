@@ -12,6 +12,10 @@ website:
         text: Resume
       - href: projects.qmd
         text: Projects
+      - text: Blog
+        menu:
+        - href: hw1_questions.qmd
+          text: HW1 - A/B Testing
 
 
 format:
