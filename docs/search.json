@@ -1,12 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Yunqing Zhao",
-    "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
-  },
-  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
@@ -14,32 +7,11 @@
     "text": "About this site"
   },
   {
-    "objectID": "index.html#welcome-to-my-website",
-    "href": "index.html#welcome-to-my-website",
-    "title": "Yunqing Zhao",
-    "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
-  },
-  {
-    "objectID": "resume.html",
-    "href": "resume.html",
-    "title": "My Resume",
-    "section": "",
-    "text": "I am a Master of Science in Business Analytics student at UC San Diego Rady School of Management.\nI am interested in: - Business Analytics - Healthcare Analytics - Data-driven Decision Making\nDownload My Resume\n\n\n\n\nPython\nSQL\nR\nSnowflake\nTableau\nExcel\n\n\n\n\n\nDownload PDF file."
-  },
-  {
     "objectID": "projects.html",
     "href": "projects.html",
     "title": "My Projects",
     "section": "",
-    "text": "Analysis of Cars\n\n\n\n\n\n\nY\n\n\nApr 5, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "resume.html#hi-im-yunqing-zhao",
-    "href": "resume.html#hi-im-yunqing-zhao",
-    "title": "My Resume",
-    "section": "",
-    "text": "I am a Master of Science in Business Analytics student at UC San Diego Rady School of Management.\nI am interested in: - Business Analytics - Healthcare Analytics - Data-driven Decision Making\nDownload My Resume\n\n\n\n\nPython\nSQL\nR\nSnowflake\nTableau\nExcel\n\n\n\n\n\nDownload PDF file."
+    "text": "Analysis of Cars\n\n\n\n\n\n\nY\n\n\nApr 13, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "resume.html#hi-im-yunqing-zhao.",
@@ -47,20 +19,6 @@
     "title": "My Resume",
     "section": "Hi, I’m Yunqing Zhao.",
     "text": "Hi, I’m Yunqing Zhao."
-  },
-  {
-    "objectID": "resume.html#hi-im-yunqing-zhao.-nancy-is-my-english-name",
-    "href": "resume.html#hi-im-yunqing-zhao.-nancy-is-my-english-name",
-    "title": "My Resume",
-    "section": "",
-    "text": "I am a Master of Science in Business Analytics student at UC San Diego Rady School of Management.\nI am interested in: - Business Analytics - Healthcare Analytics - Data-driven Decision Making\nDownload My Resume\n\n\n\n\nPython\nSQL\nR\nSnowflake\nTableau\nExcel\n\n\n\n\n\nDownload PDF file."
-  },
-  {
-    "objectID": "resume.html#hi-im-yunqing-zhao.-nancy-is-my-english-name.",
-    "href": "resume.html#hi-im-yunqing-zhao.-nancy-is-my-english-name.",
-    "title": "My Resume",
-    "section": "",
-    "text": "I am a Master of Science in Business Analytics student at UC San Diego Rady School of Management.\nI am interested in: - Business Analytics - Healthcare Analytics - Data-driven Decision Making\nDownload My Resume\n\n\n\n\nPython\nSQL\nR\nSnowflake\nTableau\nExcel\n\n\n\n\n\nDownload PDF file."
   },
   {
     "objectID": "resume.html#education",
@@ -137,7 +95,7 @@
     "href": "hw1_questions.html#the-t-test-as-a-regression",
     "title": "A/B Testing a Call to Action",
     "section": "The T-Test as a Regression",
-    "text": "The T-Test as a Regression\nIt turns out that the two-sample test we performed earlier can also be written as a simple linear regression. This connection is useful because it shows that hypothesis testing and regression are closely related, and it means we can use the same tools and software for both tasks.\nTo set this up, we combine the data from both groups into a single dataset. We define an outcome variable \\(Y_i\\), which equals 1 if the user signs up and 0 otherwise. We also define an indicator variable \\(D_i\\), which equals 1 if the observation comes from group A and 0 if it comes from group B.\nWe then fit the following regression model:\n\\[\nY_i = \\beta_0 + \\beta_1 D_i + \\varepsilon_i\n\\]\nIn this model, \\(\\beta_0\\) represents the average outcome for group B, which corresponds to the sign-up rate for CTA B. The term \\(\\beta_0 + \\beta_1\\) represents the average outcome for group A, or the sign-up rate for CTA A. Therefore, \\(\\beta_1\\) captures the difference in sign-up rates between the two groups. In fact, the estimated coefficient \\(\\hat{\\beta}_1\\) is numerically equal to the difference in sample means that we computed earlier, \\(\\hat{\\theta} = \\bar{X}_A - \\bar{X}_B\\).\nWe now fit this regression using our simulated data:\n\nimport numpy as np\nimport statsmodels.api as sm\n\n# Stack the data\nY = np.concatenate([A, B])\nD = np.concatenate([np.ones(len(A)), np.zeros(len(B))])\n\n# Add intercept\nX = sm.add_constant(D)\n\n# Fit regression\nmodel = sm.OLS(Y, X).fit()\n\nprint(model.summary())\n\n                            OLS Regression Results                            \n==============================================================================\nDep. Variable:                      y   R-squared:                       0.000\nModel:                            OLS   Adj. R-squared:                 -0.000\nMethod:                 Least Squares   F-statistic:                    0.1107\nDate:                Mon, 13 Apr 2026   Prob (F-statistic):              0.739\nTime:                        16:34:51   Log-Likelihood:                -1020.0\nNo. Observations:                2000   AIC:                             2044.\nDf Residuals:                    1998   BIC:                             2055.\nDf Model:                           1                                         \nCovariance Type:            nonrobust                                         \n==============================================================================\n                 coef    std err          t      P&gt;|t|      [0.025      0.975]\n------------------------------------------------------------------------------\nconst          0.2010      0.013     15.766      0.000       0.176       0.226\nx1             0.0060      0.018      0.333      0.739      -0.029       0.041\n==============================================================================\nOmnibus:                      411.678   Durbin-Watson:                   1.995\nProb(Omnibus):                  0.000   Jarque-Bera (JB):              721.381\nSkew:                           1.469   Prob(JB):                    2.26e-157\nKurtosis:                       3.158   Cond. No.                         2.62\n==============================================================================\n\nNotes:\n[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.\n\n\nFrom the regression output, the estimated coefficient on the indicator variable is approximately 0.006, which matches the difference in sample means computed earlier. The estimated standard error is also very close to what we obtained in the previous section.\nHowever, the p-value from the regression is relatively large (0.739), which suggests that the observed difference is not statistically significant under this approach. This contrasts with the earlier result based on the bootstrap standard error, where we found strong evidence against the null hypothesis.\nThis difference because the regression framework uses a pooled variance assumption, while the bootstrap approach directly estimates variability from the data. In this case, the regression based inference suggests that the difference could be due to random variation."
+    "text": "The T-Test as a Regression\nIt turns out that the two-sample test we performed earlier can also be written as a simple linear regression. This connection is useful because it shows that hypothesis testing and regression are closely related, and it means we can use the same tools and software for both tasks.\nTo set this up, we combine the data from both groups into a single dataset. We define an outcome variable \\(Y_i\\), which equals 1 if the user signs up and 0 otherwise. We also define an indicator variable \\(D_i\\), which equals 1 if the observation comes from group A and 0 if it comes from group B.\nWe then fit the following regression model:\n\\[\nY_i = \\beta_0 + \\beta_1 D_i + \\varepsilon_i\n\\]\nIn this model, \\(\\beta_0\\) represents the average outcome for group B, which corresponds to the sign-up rate for CTA B. The term \\(\\beta_0 + \\beta_1\\) represents the average outcome for group A, or the sign-up rate for CTA A. Therefore, \\(\\beta_1\\) captures the difference in sign-up rates between the two groups. In fact, the estimated coefficient \\(\\hat{\\beta}_1\\) is numerically equal to the difference in sample means that we computed earlier, \\(\\hat{\\theta} = \\bar{X}_A - \\bar{X}_B\\).\nWe now fit this regression using our simulated data:\n\nimport numpy as np\nimport statsmodels.api as sm\n\n# Stack the data\nY = np.concatenate([A, B])\nD = np.concatenate([np.ones(len(A)), np.zeros(len(B))])\n\n# Add intercept\nX = sm.add_constant(D)\n\n# Fit regression\nmodel = sm.OLS(Y, X).fit()\n\nprint(model.summary())\n\n                            OLS Regression Results                            \n==============================================================================\nDep. Variable:                      y   R-squared:                       0.000\nModel:                            OLS   Adj. R-squared:                 -0.000\nMethod:                 Least Squares   F-statistic:                    0.1107\nDate:                Mon, 13 Apr 2026   Prob (F-statistic):              0.739\nTime:                        17:00:55   Log-Likelihood:                -1020.0\nNo. Observations:                2000   AIC:                             2044.\nDf Residuals:                    1998   BIC:                             2055.\nDf Model:                           1                                         \nCovariance Type:            nonrobust                                         \n==============================================================================\n                 coef    std err          t      P&gt;|t|      [0.025      0.975]\n------------------------------------------------------------------------------\nconst          0.2010      0.013     15.766      0.000       0.176       0.226\nx1             0.0060      0.018      0.333      0.739      -0.029       0.041\n==============================================================================\nOmnibus:                      411.678   Durbin-Watson:                   1.995\nProb(Omnibus):                  0.000   Jarque-Bera (JB):              721.381\nSkew:                           1.469   Prob(JB):                    2.26e-157\nKurtosis:                       3.158   Cond. No.                         2.62\n==============================================================================\n\nNotes:\n[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.\n\n\nFrom the regression output, the estimated coefficient on the indicator variable is approximately 0.006, which matches the difference in sample means computed earlier. The estimated standard error is also very close to what we obtained in the previous section.\nHowever, the p-value from the regression is relatively large (0.739), which suggests that the observed difference is not statistically significant under this approach. This contrasts with the earlier result based on the bootstrap standard error, where we found strong evidence against the null hypothesis.\nThis difference because the regression framework uses a pooled variance assumption, while the bootstrap approach directly estimates variability from the data. In this case, the regression based inference suggests that the difference could be due to random variation."
   },
   {
     "objectID": "hw1_questions.html#the-problem-with-peeking",

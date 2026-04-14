@@ -14,8 +14,8 @@ website:
         text: Projects
       - text: Blog
         menu:
-        - href: hw1_questions.qmd
-          text: HW1 - A/B Testing
+         - href: hw1_questions.qmd
+           text: HW1 - A/B Testing
 
 
 format:
