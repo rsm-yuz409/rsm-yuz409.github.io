@@ -236,7 +236,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The goal is to reproduce the basic DID estimate reported in the paper and check whether the data lead to a result close to the published finding.</p>
 <section id="data-preparation" class="level3">
 <h3 class="anchored" data-anchor-id="data-preparation">Data preparation</h3>
-<div id="ea483d7b" class="cell" data-execution_count="1">
+<div id="70e976c5" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -482,7 +482,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="replication-some-of-table-2" class="level3">
 <h3 class="anchored" data-anchor-id="replication-some-of-table-2">Replication some of Table 2</h3>
-<div id="ec6b4f1e" class="cell" data-execution_count="2">
+<div id="c0d4b251" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table 2: selected descriptive statistics</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>table2_wave1 <span class="op">=</span> (</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    df.groupby(<span class="st">"state_name"</span>)</span>
@@ -572,7 +572,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="replication-of-table-3" class="level3">
 <h3 class="anchored" data-anchor-id="replication-of-table-3">Replication of Table 3</h3>
-<div id="98ae8b90" class="cell" data-execution_count="3">
+<div id="b4bc0cd9" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table 3: rows 1-3, columns 1-3</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>table3 <span class="op">=</span> (</span>
@@ -623,7 +623,7 @@ DID estimate: 2.75</code></pre>
 </section>
 <section id="replication-of-table-4-column-i" class="level3">
 <h3 class="anchored" data-anchor-id="replication-of-table-4-column-i">Replication of Table 4, column (i)</h3>
-<div id="84246600" class="cell" data-execution_count="4">
+<div id="ec75bee3" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Table 4 column (i): balanced sample with employment and wage data in both waves</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>df_t4 <span class="op">=</span> df[</span>
