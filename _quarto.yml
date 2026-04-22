@@ -16,6 +16,8 @@ website:
         menu:
          - href: hw1_questions.qmd
            text: HW1 - A/B Testing
+         - href: hw2_questions.qmd
+           text: HW2 - Replicate Causal Academic Work
 
 
 format:
