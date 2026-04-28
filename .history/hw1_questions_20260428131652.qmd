@@ -10,7 +10,7 @@ date: today
 
 - On my website, there is a "calls to action" section where visitors can sign up for newsletter.
 
-I am interested in whether different language of "calls to action" can influence user behavior. Specifically I want to compare two versions of messages and determine which one can lead to more sign-ups.
+I am interested in whether different language of "calls to action" can influence user behavior. Specifically I want to compare two versions of messages and determine which one can lead to more sign-ups..
 
 I do the A/B testing to get the answer. The visitors are randomly assigned to two different groups, one is to see the language "Sign up for our newsletter here!", others see "Stay up to date by signing up!"
 In this case, I compare the proportion of users who sign up under each version of "calls to action."
@@ -112,7 +112,7 @@ Using the bootstrapped standard error, the 95% confidence interval for $\theta$ 
 
 ## The Central Limit Theorem
 
-- Now, we will introduce the new theorem - The Central Limit Theorem which means as the sample size becomes larger, the sampling distribution of the sample mean becomes approximately Normal, even when the underlying data are not Normally distributed. In this setting, that means the distribution of our estimator $\hat{\theta} = \bar{X}_A - \bar{X}_B$ should become more bell-shaped as the sample size increases.
+- Now, we will introduce the new theorem - The Central Limit Therom which means as the sample size becomes larger, the sampling distribution of the sample mean becomes approximately Normal, even when the underlying data are not Normally distributed. In this setting, that means the distribution of our estimator $\hat{\theta} = \bar{X}_A - \bar{X}_B$ should become more bell-shaped as the sample size increases.
 
 ```{python}
 #| echo: false
