@@ -112,7 +112,7 @@ Using the bootstrapped standard error, the 95% confidence interval for $\theta$ 
 
 ## The Central Limit Theorem
 
-- Now, we will introduce the new theorem - The Central Limit Theorem which means as the sample size becomes larger, the sampling distribution of the sample mean becomes approximately Normal, even when the underlying data are not Normally distributed. In this setting, that means the distribution of our estimator $\hat{\theta} = \bar{X}_A - \bar{X}_B$ should become more bell-shaped as the sample size increases.
+- Now, we will introduce the new theorem - The Central Limit Therom which means as the sample size becomes larger, the sampling distribution of the sample mean becomes approximately Normal, even when the underlying data are not Normally distributed. In this setting, that means the distribution of our estimator $\hat{\theta} = \bar{X}_A - \bar{X}_B$ should become more bell-shaped as the sample size increases.
 
 ```{python}
 #| echo: false
@@ -131,8 +131,8 @@ for n in sample_sizes:
     for _ in range(1000):   #For each sample size, we repeat the simulation 1,000 times to approximate the sampling distribution.
         A_sample = np.random.binomial(1, pi_A, n)
         B_sample = np.random.binomial(1, pi_B, n)
-        theta_sample = A_sample.mean() - B_sample.mean()
-        theta_hats.append(theta_sample)
+        theta_hat = A_sample.mean() - B_sample.mean()
+        theta_hats.append(theta_hat)
 
     all_theta_hats[n] = np.array(theta_hats)
 
@@ -197,11 +197,11 @@ p_value = 2 * (1 - norm.cdf(abs(z)))
 print("Z statistic:", round(z, 4))
 print("p-value:", round(p_value, 4))
 ```
-From the output, we get the corresponding p-value is large (around 0.74), which suggests that the observed difference could plausibly occur by random chance under the null hypothesis.
+From the output, we get the corresponding p-value is very small (0.0001), which suggests that the observed difference would be highly unlikely if the null hypothesis were true.
 
-Since the p-value is well above the 0.05 threshold, we fail to reject the null hypothesis. This is consistent with the bootstrap confidence interval above, which also included 0.
+Since the p-value is well below the 0.05 threshold, we reject the null hypothesis. This provides strong evidence that there is a meaningful difference in sign-up rates between CTA A and CTA B.
 
-In practical terms, based on this sample, we do not have sufficient evidence to conclude that the choice of call-to-action wording has a meaningful impact on sign-up rates. The observed difference could be due to random variation.
+In practical terms, this suggests that the choice of call-to-action wording can have a real impact on user behavior, rather than the observed difference being due to random variation.
 
 
 ## The T-Test as a Regression
@@ -238,9 +238,9 @@ print(model.summary())
 
 From the regression output, the estimated coefficient on the indicator variable is approximately 0.006, which matches the difference in sample means computed earlier. The estimated standard error is also very close to what we obtained in the previous section.
 
-The p-value from the regression is relatively large (0.739), which suggests that the observed difference is not statistically significant. This is consistent with both the bootstrap confidence interval and the z-test result above — all three approaches agree that we cannot reject the null hypothesis.
+However, the p-value from the regression is relatively large (0.739), which suggests that the observed difference is not statistically significant under this approach. This contrasts with the earlier result based on the bootstrap standard error, where we found strong evidence against the null hypothesis.
 
-This consistency arises because the regression framework, the bootstrap, and the z-test are all estimating the same underlying quantity. The regression approach provides a convenient unified framework that connects hypothesis testing with linear modeling.
+This difference because the regression framework uses a pooled variance assumption, while the bootstrap approach directly estimates variability from the data. In this case, the regression based inference suggests that the difference could be due to random variation.
 
 
 ## The Problem with Peeking
