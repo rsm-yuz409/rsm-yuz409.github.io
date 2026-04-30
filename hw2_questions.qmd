@@ -1,6 +1,6 @@
 ---
 title: "Replication of Card and Krueger (1994)"
-subtitle: "Minimum Wages and Employment: A Case Study of the Fast-Food Industryin New Jersey and Pennsylvania"
+subtitle: "Minimum Wages and Employment: A Case Study of the Fast-Food Industry in New Jersey and Pennsylvania"
 author: "Yunqing Zhao"
 date: today
 ---
@@ -241,7 +241,7 @@ table4_col1.round(2)
 ```
 The regression results are very close to those reported in column (i) of Table 4. The coefficient on the New Jersey dummy is about 2.28, which is close to the published estimate of 2.33.
 
-This coefficient represents the difference-in-differences estimate from a regression framework. It shows that employment in New Jersey increased relative to Pennsylvania after the minimum wage increase.The standard error and the standard error of the regression are also very similar to those reported in the paper.
+This coefficient represents the difference-in-differences estimate from a regression framework. It shows that employment in New Jersey increased relative to Pennsylvania after the minimum wage increase. The standard error and the standard error of the regression are also very similar to those reported in the paper.
 
 ## Something Additional
 ### The importance of DID analysis
