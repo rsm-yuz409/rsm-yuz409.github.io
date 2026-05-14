@@ -29,6 +29,8 @@ Before jumping into modeling, it is helpful to take a closer look at the data. I
 
 ```{python}
 #| echo: false
+
+
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -82,6 +84,8 @@ This suggests that customer adoption is not random and may be influenced by geog
 ### Firm Age by Customer Status
 ```{python}
 #| echo: false
+
+
 fig, axes = plt.subplots(1, 2, figsize=(10, 4), sharex=True, sharey=True)
 
 axes[0].hist(non_customers["age"], bins=15)
@@ -121,7 +125,7 @@ $$
 Y_i \sim \text{Poisson}(\lambda)
 $$
 
-Here, \(\lambda\) represents the expected number of patents for a firm.
+Here, $\lambda$ represents the expected number of patents for a firm.
 
 For one firm, the Poisson probability mass function is:
 
@@ -145,13 +149,12 @@ $$
 \right)
 $$
 
-The goal of maximum likelihood estimation is to find the value of \(\lambda\) that makes the observed patent counts most likely.
+The goal of maximum likelihood estimation is to find the value of $\lambda$ that makes the observed patent counts most likely.
 
 ### Log-likelihood function & graph
 ```{python}
 #| echo: true
-#| warning: false
-#| message: false
+
 
 import numpy as np
 import pandas as pd
@@ -170,8 +173,7 @@ def poisson_loglikelihood(lam, Y):
 ```
 ```{python}
 #| echo: false
-#| warning: false
-#| message: false
+
 
 lambda_grid = np.linspace(0.1, 8, 300)
 loglik_values = [poisson_loglikelihood(lam, Y) for lam in lambda_grid]
@@ -200,9 +202,11 @@ Intuitively, this suggests that the value of λ that makes the data most “plau
 
 ### Finding the MLE Numerically
 
-The plot gives us a visual sense of where the best value of \(\lambda\) is, but we can also find it directly using numerical optimization. Since `scipy.optimize.minimize_scalar()` minimizes a function, I minimize the negative log-likelihood, which is the same as maximizing the log-likelihood.
+The plot gives us a visual sense of where the best value of $\lambda$ is, but we can also find it directly using numerical optimization. Since `scipy.optimize.minimize_scalar()` minimizes a function, I minimize the negative log-likelihood, which is the same as maximizing the log-likelihood.
 
 ```{python}
+#| echo: true
+
 
 result = minimize_scalar(
     lambda lam: -poisson_loglikelihood(lam, Y),
@@ -215,7 +219,7 @@ lambda_mle = result.x
 print(f"Numerical MLE for lambda: {lambda_mle:.4f}")
 print(f"Sample mean of patents: {sample_mean:.4f}")
 ```
-The numerical MLE is essentially the same as the sample mean. This is exactly what we expect for a simple Poisson model: the best estimate of \(\lambda\), the average rate of patents, is just the average number of patents observed in the data.
+The numerical MLE is essentially the same as the sample mean. This is exactly what we expect for a simple Poisson model: the best estimate of $\lambda$, the average rate of patents, is just the average number of patents observed in the data.
 
 ### Why the MLE Equals the Sample Mean
 We can also see this result from the log-likelihood itself. Starting from the log-likelihood,
@@ -229,7 +233,7 @@ $$
 \right)
 $$
 
-we take the derivative with respect to \(\lambda\):
+we take the derivative with respect to $\lambda$:
 
 $$
 \frac{\partial \ell}{\partial \lambda}
@@ -256,7 +260,7 @@ $$
 -n + \frac{\sum_{i=1}^{n}Y_i}{\lambda} = 0
 $$
 
-Solving for \(\lambda\), we get:
+Solving for $\lambda$, we get:
 
 $$
 \hat{\lambda}_{MLE}
@@ -266,7 +270,7 @@ $$
 \bar{Y}
 $$
 
-So the MLE for \(\lambda\) is the sample mean. This result makes intuitive sense: if we are using one Poisson distribution to describe all firms, the best single estimate of the patent rate is the overall average number of patents.
+So the MLE for $\lambda$ is the sample mean. This result makes intuitive sense: if we are using one Poisson distribution to describe all firms, the best single estimate of the patent rate is the overall average number of patents.
 This simple model is useful as a starting point, but it treats every firm as if it has the same expected patent count. In the next model, we will make this more realistic by allowing expected patent counts to vary based on customer status, region, and firm age.
 
 
@@ -279,15 +283,14 @@ To allow each firm to have its own expected patent count, we extend the model to
 $$
 Y_i \sim \text{Poisson}(\lambda_i)
 \qquad \text{where} \qquad
-\lambda_i = \exp(X_i\beta)
+\lambda_i = \exp(X_i \beta)
 $$
 
-The exponential function is important here because \(\lambda_i\) must always be positive. The linear part, \(X_i\beta\), can be any real number, but after applying \(\exp(\cdot)\), the predicted patent rate is guaranteed to stay above zero.
+The exponential function is important here because $\lambda_i$ must always be positive. The linear part, $X_i \beta$, can be any real number, after applying $\exp(\cdot)$, the predicted patent rate is guaranteed to stay above zero.
 
 ```{python}
 #| echo: true
-#| warning: false
-#| message: false
+
 
 import numpy as np
 import pandas as pd
@@ -318,13 +321,14 @@ X = X_df.to_numpy(dtype=float)
 X_df.head()
 ```
 The table above shows the design matrix used for the Poisson regression. It includes an intercept term, firm age, age squared, customer status, and region indicators.
+
 The region variables are converted into dummy variables, with one region omitted as the reference group to avoid perfect collinearity. As a result, each region coefficient should be interpreted relative to the omitted baseline region.
+
 Including both age and age squared allows the model to capture potential non-linear effects of firm age on patent outcomes, rather than forcing a strictly linear relationship.
 
 ```{python}
 #| echo: true
-#| warning: false
-#| message: false
+
 
 def poisson_regression_loglikelihood(beta, Y, X):
     eta = np.clip(X @ beta, -20, 20)
@@ -356,14 +360,15 @@ mle_results
 ```
 
 The positive coefficient on `iscustomer` suggests that Blueprinty customers tend to produce more patents than comparable non-customers, even after controlling for firm age and region.
+
 The age terms indicate that patent activity increases with firm age, but at a decreasing rate, meaning the effect of age becomes weaker for more mature firms.
+
 The region effects appear relatively small compared to the customer effect, suggesting that location plays a secondary role in explaining patent output.
 Thus, the results highlight that both firm characteristics and software usage are important in explaining patent outcomes, and simple comparisons would miss these underlying differences.
 
 ```{python}
 #| echo: true
-#| warning: false
-#| message: false
+
 
 glm_model = sm.GLM(Y, X, family=sm.families.Poisson())
 glm_result = glm_model.fit()
@@ -383,8 +388,7 @@ So, the results are consistent across both approaches, which gives confidence th
 
 ```{python}
 #| echo: false
-#| warning: false
-#| message: false
+
 
 customer_coef = beta_hat[X_df.columns.get_loc("iscustomer")]
 customer_multiplier = np.exp(customer_coef)
@@ -394,8 +398,11 @@ print(f"exp(customer coefficient): {customer_multiplier:.4f}")
 print(f"Percent difference: {(customer_multiplier - 1) * 100:.1f}%")
 ```
 The exponentiated customer coefficient is about 1.23, which means that, holding age and region constant, Blueprinty customers are expected to produce roughly 23% more patents than comparable non-customers.
+
 This is a fairly meaningful difference, especially given that we are already controlling for other firm characteristics. While this does not establish a causal effect, it suggests a strong positive association between using Blueprinty’s software and patent output.
+
 In the simple model, all firms were assumed to have the same expected number of patents, which is clearly unrealistic. In practice, firms differ in important ways, such as their age, location, and whether they use Blueprinty’s software.
+
 To capture these differences, we extend the model so that each firm has its own expected patent rate, determined by its characteristics. This is done by modeling the rate parameter as an exponential function of observed features, which ensures that predicted patent counts remain positive.
 
 
@@ -412,8 +419,7 @@ Then I use the fitted model to predict the expected number of patents in both ca
 
 ```{python}
 #| echo: true
-#| warning: false
-#| message: false
+
 
 # Copy the design matrix twice
 X_0 = X_df.copy()
@@ -447,8 +453,7 @@ effect_results
 ```
 ```{python}
 #| echo: true
-#| warning: false
-#| message: false
+
 
 print(f"Average predicted patents if all firms are non-customers: {avg_yhat_0:.3f}")
 print(f"Average predicted patents if all firms are customers: {avg_yhat_1:.3f}")
@@ -456,6 +461,9 @@ print(f"Estimated average effect of Blueprinty customer status: {avg_effect:.3f}
 ```
 
 To make the model results easier to interpret, I compared two counterfactual scenarios. In the first one, I treated every firm as a non-customer, and in the second, I treated every firm as if it used Blueprinty’s software, while keeping age and region unchanged.This means the comparison is not simply customers versus non-customers in the raw data; it is comparing the same firms under two different customer status assumptions.
+
 The model predicts an average of about 3.44 patents when every firm is treated as a non-customer, compared with about 4.23 patents when every firm is treated as a Blueprinty customer. The gap is about 0.79 patents per firm. Because age and region are held fixed in this comparison, this difference is a model-based estimate of the association between customer status and patent output, rather than just a raw comparison of the two groups.
+
 This suggests that, on average, being a Blueprinty customer is associated with a higher patent output, even after accounting for differences in firm age and region. In other words, the software appears to be linked to a meaningful increase in patent activity.
+
 That said, this result should be interpreted with caution. Since the data is observational rather than experimental, we cannot fully rule out the possibility that customers differ from non-customers in other unobserved ways. So while the findings are consistent with Blueprinty’s claim, they do not prove a causal effect.
