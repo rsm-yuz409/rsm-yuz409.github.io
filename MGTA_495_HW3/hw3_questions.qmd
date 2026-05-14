@@ -153,7 +153,7 @@ The goal of maximum likelihood estimation is to find the value of $\lambda$ that
 
 ### Log-likelihood function & graph
 ```{python}
-#| echo: true
+#| echo: false
 
 
 import numpy as np
@@ -205,7 +205,7 @@ Intuitively, this suggests that the value of λ that makes the data most “plau
 The plot gives us a visual sense of where the best value of $\lambda$ is, but we can also find it directly using numerical optimization. Since `scipy.optimize.minimize_scalar()` minimizes a function, I minimize the negative log-likelihood, which is the same as maximizing the log-likelihood.
 
 ```{python}
-#| echo: true
+#| echo: false
 
 
 result = minimize_scalar(
@@ -289,7 +289,7 @@ $$
 The exponential function is important here because $\lambda_i$ must always be positive. The linear part, $X_i \beta$, can be any real number, after applying $\exp(\cdot)$, the predicted patent rate is guaranteed to stay above zero.
 
 ```{python}
-#| echo: true
+#| echo: false
 
 
 import numpy as np
@@ -327,7 +327,7 @@ The region variables are converted into dummy variables, with one region omitted
 Including both age and age squared allows the model to capture potential non-linear effects of firm age on patent outcomes, rather than forcing a strictly linear relationship.
 
 ```{python}
-#| echo: true
+#| echo: false
 
 
 def poisson_regression_loglikelihood(beta, Y, X):
@@ -367,7 +367,7 @@ The region effects appear relatively small compared to the customer effect, sugg
 Thus, the results highlight that both firm characteristics and software usage are important in explaining patent outcomes, and simple comparisons would miss these underlying differences.
 
 ```{python}
-#| echo: true
+#| echo: false
 
 
 glm_model = sm.GLM(Y, X, family=sm.families.Poisson())
