@@ -1,6 +1,6 @@
 ---
 title: "Replication of Card and Krueger (1994)"
-subtitle: "Minimum Wages and Employment:A Case Study of the Fast-Food Industryin New Jersey and Pennsylvania"
+subtitle: "Minimum Wages and Employment: A Case Study of the Fast-Food Industryin New Jersey and Pennsylvania"
 author: "Yunqing Zhao"
 date: today
 ---
@@ -245,7 +245,7 @@ This coefficient represents the difference-in-differences estimate from a regres
 
 ## Something Additional
 ### The importance of DID analysis
-The difference-in-differences (DID) approach is important in amalysis since it focuses on changes over time rather than just comparing levels. In this paper, New Jersey is the treatment group and Pennsylvania is the control group.
+The difference-in-differences (DID) approach is important in analysis since it focuses on changes over time rather than just comparing levels. In this paper, New Jersey is the treatment group and Pennsylvania is the control group.
 
 The main idea is that DID helps remove factors that affect both states in the same way over time. For example, broader economic conditions, like a recession, would influence employment in both places. By comparing how employment changes in New Jersey relative to Pennsylvania, these shared time effects are removed.
 
