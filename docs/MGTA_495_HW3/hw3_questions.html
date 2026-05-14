@@ -22,41 +22,6 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
@@ -275,7 +240,7 @@ window.Quarto = {
 <hr>
 <section id="patent-distribution-by-customer-status" class="level3">
 <h3 class="anchored" data-anchor-id="patent-distribution-by-customer-status">Patent Distribution by Customer Status</h3>
-<div id="7d604c6e" class="cell" data-execution_count="1">
+<div id="7a1e7078" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -288,7 +253,7 @@ window.Quarto = {
 </section>
 <section id="region-distribution-by-customer-status" class="level3">
 <h3 class="anchored" data-anchor-id="region-distribution-by-customer-status">Region Distribution by Customer Status</h3>
-<div id="97d698ea" class="cell" data-execution_count="2">
+<div id="216d64c1" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
@@ -342,7 +307,7 @@ window.Quarto = {
 </section>
 <section id="firm-age-by-customer-status" class="level3">
 <h3 class="anchored" data-anchor-id="firm-age-by-customer-status">Firm Age by Customer Status</h3>
-<div id="c4e41dfa" class="cell" data-execution_count="3">
+<div id="4c456ec6" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -389,7 +354,7 @@ L(\lambda \mid Y) = \prod_{i=1}^{n} \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}
 <p>The goal of maximum likelihood estimation is to find the value of <span class="math inline">\(\lambda\)</span> that makes the observed patent counts most likely.</p>
 <section id="log-likelihood-function-graph" class="level3">
 <h3 class="anchored" data-anchor-id="log-likelihood-function-graph">Log-likelihood function &amp; graph</h3>
-<div id="fb7f6f8b" class="cell" data-execution_count="5">
+<div id="cf129b98" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -405,7 +370,7 @@ L(\lambda \mid Y) = \prod_{i=1}^{n} \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}
 <section id="finding-the-mle-numerically" class="level3">
 <h3 class="anchored" data-anchor-id="finding-the-mle-numerically">Finding the MLE Numerically</h3>
 <p>The plot gives us a visual sense of where the best value of <span class="math inline">\(\lambda\)</span> is, but we can also find it directly using numerical optimization. Since <code>scipy.optimize.minimize_scalar()</code> minimizes a function, I minimize the negative log-likelihood, which is the same as maximizing the log-likelihood.</p>
-<div id="d9cd405a" class="cell" data-execution_count="6">
+<div id="9470c911" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>Numerical MLE for lambda: 3.6847
 Sample mean of patents: 3.6847</code></pre>
@@ -466,7 +431,7 @@ Y_i \sim \text{Poisson}(\lambda_i)
 \lambda_i = \exp(X_i \beta)
 \]</span></p>
 <p>The exponential function is important here because <span class="math inline">\(\lambda_i\)</span> must always be positive. The linear part, <span class="math inline">\(X_i \beta\)</span>, can be any real number, after applying <span class="math inline">\(\exp(\cdot)\)</span>, the predicted patent rate is guaranteed to stay above zero.</p>
-<div id="5a53ccd8" class="cell" data-execution_count="7">
+<div id="f5f82c73" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
@@ -550,7 +515,7 @@ Y_i \sim \text{Poisson}(\lambda_i)
 <p>The table above shows the design matrix used for the Poisson regression. It includes an intercept term, firm age, age squared, customer status, and region indicators.</p>
 <p>The region variables are converted into dummy variables, with one region omitted as the reference group to avoid perfect collinearity. As a result, each region coefficient should be interpreted relative to the omitted baseline region.</p>
 <p>Including both age and age squared allows the model to capture potential non-linear effects of firm age on patent outcomes, rather than forcing a strictly linear relationship.</p>
-<div id="2194e9c2" class="cell" data-execution_count="8">
+<div id="d509ad15" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
@@ -613,7 +578,7 @@ Y_i \sim \text{Poisson}(\lambda_i)
 <p>The positive coefficient on <code>iscustomer</code> suggests that Blueprinty customers tend to produce more patents than comparable non-customers, even after controlling for firm age and region.</p>
 <p>The age terms indicate that patent activity increases with firm age, but at a decreasing rate, meaning the effect of age becomes weaker for more mature firms.</p>
 <p>The region effects appear relatively small compared to the customer effect, suggesting that location plays a secondary role in explaining patent output. Thus, the results highlight that both firm characteristics and software usage are important in explaining patent outcomes, and simple comparisons would miss these underlying differences.</p>
-<div id="a94040a2" class="cell" data-execution_count="9">
+<div id="943fa791" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
@@ -692,7 +657,7 @@ Y_i \sim \text{Poisson}(\lambda_i)
 </div>
 </div>
 <p>The coefficients obtained from the manual MLE closely match those from the statsmodels GLM, which provides a useful validation of the implementation. The small differences we see are likely due to numerical optimization and how the Hessian is approximated in each method. So, the results are consistent across both approaches, which gives confidence that the model has been correctly specified and estimated.</p>
-<div id="ab1d03a5" class="cell" data-execution_count="10">
+<div id="f369b8c2" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-stdout">
 <pre><code>Customer coefficient: 0.2076
 exp(customer coefficient): 1.2307
@@ -713,36 +678,7 @@ Percent difference: 23.1%</code></pre>
 <li>in the other version, every firm is treated as a Blueprinty customer.</li>
 </ul>
 <p>Then I use the fitted model to predict the expected number of patents in both cases and compare the averages.</p>
-<div id="bad94e0a" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy the design matrix twice</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>X_0 <span class="op">=</span> X_df.copy()</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>X_1 <span class="op">=</span> X_df.copy()</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Counterfactual 1: treat every firm as a non-customer</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>X_0[<span class="st">"iscustomer"</span>] <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Counterfactual 2: treat every firm as a Blueprinty customer</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>X_1[<span class="st">"iscustomer"</span>] <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Convert to numpy arrays</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>X_0_np <span class="op">=</span> X_0.to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)</span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>X_1_np <span class="op">=</span> X_1.to_numpy(dtype<span class="op">=</span><span class="bu">float</span>)</span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Predict expected patent counts under both scenarios</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>yhat_0 <span class="op">=</span> np.exp(np.clip(X_0_np <span class="op">@</span> beta_hat, <span class="op">-</span><span class="dv">20</span>, <span class="dv">20</span>))</span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>yhat_1 <span class="op">=</span> np.exp(np.clip(X_1_np <span class="op">@</span> beta_hat, <span class="op">-</span><span class="dv">20</span>, <span class="dv">20</span>))</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Average counterfactual effect</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>avg_yhat_0 <span class="op">=</span> yhat_0.mean()</span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>avg_yhat_1 <span class="op">=</span> yhat_1.mean()</span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>avg_effect <span class="op">=</span> (yhat_1 <span class="op">-</span> yhat_0).mean()</span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>effect_results <span class="op">=</span> pd.DataFrame({</span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Scenario"</span>: [<span class="st">"Everyone treated as non-customer"</span>, <span class="st">"Everyone treated as customer"</span>],</span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Average predicted patents"</span>: [avg_yhat_0, avg_yhat_1]</span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>effect_results</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="aae14c18" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
@@ -772,10 +708,7 @@ Percent difference: 23.1%</code></pre>
 </div>
 </div>
 </div>
-<div id="35e3095a" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average predicted patents if all firms are non-customers: </span><span class="sc">{</span>avg_yhat_0<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average predicted patents if all firms are customers: </span><span class="sc">{</span>avg_yhat_1<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimated average effect of Blueprinty customer status: </span><span class="sc">{</span>avg_effect<span class="sc">:.3f}</span><span class="ss"> patents"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="466ecfd4" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-stdout">
 <pre><code>Average predicted patents if all firms are non-customers: 3.436
 Average predicted patents if all firms are customers: 4.229

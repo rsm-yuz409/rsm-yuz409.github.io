@@ -328,8 +328,6 @@ Including both age and age squared allows the model to capture potential non-lin
 
 ```{python}
 #| echo: false
-
-
 def poisson_regression_loglikelihood(beta, Y, X):
     eta = np.clip(X @ beta, -20, 20)
     lam = np.exp(eta)
@@ -418,7 +416,7 @@ To make the result easier to understand, I use a counterfactual approach. I keep
 Then I use the fitted model to predict the expected number of patents in both cases and compare the averages.
 
 ```{python}
-#| echo: true
+#| echo: false
 
 
 # Copy the design matrix twice
@@ -452,7 +450,7 @@ effect_results = pd.DataFrame({
 effect_results
 ```
 ```{python}
-#| echo: true
+#| echo: false
 
 
 print(f"Average predicted patents if all firms are non-customers: {avg_yhat_0:.3f}")
