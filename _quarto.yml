@@ -18,7 +18,8 @@ website:
            text: HW1 - A/B Testing
          - href: hw2_questions.qmd
            text: HW2 - Replicate Causal Academic Work
-
+         - href: MGTA_495_HW3/hw3_questions.qmd
+           text: HW3 - MLE
 
 format:
   html:
