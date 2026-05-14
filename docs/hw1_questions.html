@@ -2,18 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.9.36">
+<meta name="generator" content="quarto-1.9.13">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Yunqing Zhao">
-<meta name="dcterms.date" content="2026-04-28">
+<meta name="dcterms.date" content="2026-05-14">
 
 <title>A/B Testing a Call to Action – Yunqing Zhao</title>
 <style>
-/* Default styles provided by pandoc.
-** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
-*/
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
 div.columns{display: flex; gap: min(4vw, 1.5em);}
@@ -72,14 +69,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-845c23b38eaddc0f92fda52bfe77a8c8.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ac077c1e730dfeb5e42400639d17284e.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-158031087360bce0ff56dc785ce39e06.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-8fedf4b0b09d7e3efc607d46e5f6a2f0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -109,7 +107,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -183,6 +181,10 @@ window.Quarto = {
     <a class="dropdown-item" href="./hw2_questions.html">
  <span class="dropdown-text">HW2 - Replicate Causal Academic Work</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="./MGTA_495_HW3/hw3_questions.html">
+ <span class="dropdown-text">HW3 - MLE</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -236,7 +238,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 28, 2026</p>
+      <p class="date">May 14, 2026</p>
     </div>
   </div>
   
@@ -270,7 +272,7 @@ window.Quarto = {
 </ul>
 <p>Suppose that the sign-up probability for CTA A is <span class="math inline">\(\pi_A = 0.22\)</span>, while for CTA B it is <span class="math inline">\(\pi_B = 0.18\)</span>. This means that the true difference in sign-up rates is <span class="math inline">\(\theta = 0.04\)</span>.</p>
 <p>To generate data, we simulate 1,000 observations for each group using a Bernoulli distribution. Each observation takes the value 1 if the user signs up and 0 otherwise. These simulated samples will be used throughout the rest of the analysis.</p>
-<div id="ca8126dc" class="cell" data-execution_count="1">
+<div id="dc0f3cb1" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>pi_A<span class="op">=</span><span class="fl">0.22</span></span>
@@ -290,7 +292,7 @@ window.Quarto = {
 <ul>
 <li>The Law of Large Numbers states that as the sample size increases, the sample mean tends to get closer to the real population mean. In our case, this means that as we observe more data, our estimator <span class="math inline">\(\hat{\theta} = \bar{X}_A - \bar{X}_B\)</span> should get closer to the true difference <span class="math inline">\(\theta = 0.04\)</span>.</li>
 </ul>
-<div id="613ce178" class="cell" data-execution_count="2">
+<div id="885a1c97" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -307,7 +309,7 @@ window.Quarto = {
 <li>The next question is how precise that estimate is. A point estimate by itself does not tell us how much uncertainty there is, so we also want a standard error and a confidence interval.</li>
 </ul>
 <p>One way to estimate uncertainty is the bootstrap. The basic idea is to repeatedly resample from the observed data, with replacement, and recompute the statistic every time. The variation across those resampled estimates tells us how much our estimator tends to fluctuate. In this case, we use the standard deviation of the bootstrapped estimates as our estimate of the standard error.</p>
-<div id="6f129d43" class="cell" data-execution_count="3">
+<div id="5b22d30f" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Point estimate from the original sample</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>theta_hat <span class="op">=</span> A.mean() <span class="op">-</span> B.mean()</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Bootstrap procedure</span></span>
@@ -355,11 +357,11 @@ Analytical SE: 0.018
 <ul>
 <li>Now, we will introduce the new theorem - The Central Limit Theorem which means as the sample size becomes larger, the sampling distribution of the sample mean becomes approximately Normal, even when the underlying data are not Normally distributed. In this setting, that means the distribution of our estimator <span class="math inline">\(\hat{\theta} = \bar{X}_A - \bar{X}_B\)</span> should become more bell-shaped as the sample size increases.</li>
 </ul>
-<div id="ddc50a17" class="cell" data-execution_count="4">
+<div id="25ac2f9c" class="cell" data-execution_count="4">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="hw1_questions_files/figure-html/cell-5-output-1.png" width="1142" height="758" class="figure-img"></p>
+<p><img src="hw1_questions_files/figure-html/cell-5-output-1.png" width="1141" height="756" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -381,7 +383,7 @@ z = \frac{\hat\theta - 0}{SE(\hat\theta)}
 <p>By the Central Limit Theorem, this statistic is approximately Normally distributed when the sample size is large. Under the null hypothesis, it follows a standard Normal distribution, which allows us to compute a p-value.</p>
 <p>We typically compare the p-value to a threshold of 0.05. If the p-value is below 0.05, we reject the null hypothesis and conclude that there is a meaningful difference. If it is above 0.05, we do not reject the null hypothesis, meaning the observed difference could be due to random variation.</p>
 <p>Although this is sometimes referred to as a t-test, in our setting the test statistic is approximately Normal rather than following an exact t-distribution. This is because our data come from Bernoulli distributions, not Normal distributions. However, for large sample sizes, the difference between the t-distribution and the Normal distribution becomes negligible, so using the Normal approximation is appropriate here.</p>
-<div id="7cc8ff9a" class="cell" data-execution_count="5">
+<div id="de89cc58" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute test statistic</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>z <span class="op">=</span> theta_hat <span class="op">/</span> bootstrap_se</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -393,13 +395,13 @@ z = \frac{\hat\theta - 0}{SE(\hat\theta)}
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Z statistic:"</span>, <span class="bu">round</span>(z, <span class="dv">4</span>))</span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"p-value:"</span>, <span class="bu">round</span>(p_value, <span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Z statistic: 3.9456
-p-value: 0.0001</code></pre>
+<pre><code>Z statistic: 0.3382
+p-value: 0.7352</code></pre>
 </div>
 </div>
-<p>From the output, we get the corresponding p-value is very small (0.0001), which suggests that the observed difference would be highly unlikely if the null hypothesis were true.</p>
-<p>Since the p-value is well below the 0.05 threshold, we reject the null hypothesis. This provides strong evidence that there is a meaningful difference in sign-up rates between CTA A and CTA B.</p>
-<p>In practical terms, this suggests that the choice of call-to-action wording can have a real impact on user behavior, rather than the observed difference being due to random variation.</p>
+<p>From the output, we get the corresponding p-value is large (around 0.74), which suggests that the observed difference could plausibly occur by random chance under the null hypothesis.</p>
+<p>Since the p-value is well above the 0.05 threshold, we fail to reject the null hypothesis. This is consistent with the bootstrap confidence interval above, which also included 0.</p>
+<p>In practical terms, based on this sample, we do not have sufficient evidence to conclude that the choice of call-to-action wording has a meaningful impact on sign-up rates. The observed difference could be due to random variation.</p>
 </section>
 <section id="the-t-test-as-a-regression" class="level2">
 <h2 class="anchored" data-anchor-id="the-t-test-as-a-regression">The T-Test as a Regression</h2>
@@ -411,7 +413,7 @@ Y_i = \beta_0 + \beta_1 D_i + \varepsilon_i
 \]</span></p>
 <p>In this model, <span class="math inline">\(\beta_0\)</span> represents the average outcome for group B, which corresponds to the sign-up rate for CTA B. The term <span class="math inline">\(\beta_0 + \beta_1\)</span> represents the average outcome for group A, or the sign-up rate for CTA A. Therefore, <span class="math inline">\(\beta_1\)</span> captures the difference in sign-up rates between the two groups. In fact, the estimated coefficient <span class="math inline">\(\hat{\beta}_1\)</span> is numerically equal to the difference in sample means that we computed earlier, <span class="math inline">\(\hat{\theta} = \bar{X}_A - \bar{X}_B\)</span>.</p>
 <p>We now fit this regression using our simulated data:</p>
-<div id="df494b01" class="cell" data-execution_count="6">
+<div id="63ef9dbe" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -432,8 +434,8 @@ Y_i = \beta_0 + \beta_1 D_i + \varepsilon_i
 Dep. Variable:                      y   R-squared:                       0.000
 Model:                            OLS   Adj. R-squared:                 -0.000
 Method:                 Least Squares   F-statistic:                    0.1107
-Date:                Tue, 28 Apr 2026   Prob (F-statistic):              0.739
-Time:                        13:18:56   Log-Likelihood:                -1020.0
+Date:                Thu, 14 May 2026   Prob (F-statistic):              0.739
+Time:                        11:10:22   Log-Likelihood:                -1020.0
 No. Observations:                2000   AIC:                             2044.
 Df Residuals:                    1998   BIC:                             2055.
 Df Model:                           1                                         
@@ -455,15 +457,15 @@ Notes:
 </div>
 </div>
 <p>From the regression output, the estimated coefficient on the indicator variable is approximately 0.006, which matches the difference in sample means computed earlier. The estimated standard error is also very close to what we obtained in the previous section.</p>
-<p>However, the p-value from the regression is relatively large (0.739), which suggests that the observed difference is not statistically significant under this approach. This contrasts with the earlier result based on the bootstrap standard error, where we found strong evidence against the null hypothesis.</p>
-<p>This difference because the regression framework uses a pooled variance assumption, while the bootstrap approach directly estimates variability from the data. In this case, the regression based inference suggests that the difference could be due to random variation.</p>
+<p>The p-value from the regression is relatively large (0.739), which suggests that the observed difference is not statistically significant. This is consistent with both the bootstrap confidence interval and the z-test result above — all three approaches agree that we cannot reject the null hypothesis.</p>
+<p>This consistency arises because the regression framework, the bootstrap, and the z-test are all estimating the same underlying quantity. The regression approach provides a convenient unified framework that connects hypothesis testing with linear modeling.</p>
 </section>
 <section id="the-problem-with-peeking" class="level2">
 <h2 class="anchored" data-anchor-id="the-problem-with-peeking">The Problem with Peeking</h2>
 <p>In practice, it can be tempting to check results early and often. For example, instead of waiting until all 1,000 users have been assigned to each group, we might look at the results after every 100 users and stop the experiment as soon as we see a statistically significant result.</p>
 <p>At first, this might seem reasonable, but it actually creates a problem. A single hypothesis test at the 0.05 level has a 5% chance of producing a false positive. However, when we repeatedly test the data as it accumulates, each additional check creates another chance to falsely reject the null hypothesis. As a result, the overall probability of making at least one false discovery becomes much higher than 5%.</p>
 <p>To see this more clearly, we can simulate this situation. We assume that there is actually no difference between the two groups, so the null hypothesis is true.</p>
-<div id="f9c299cd" class="cell" data-execution_count="7">
+<div id="ede7aea0" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> norm</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">123</span>)</span>

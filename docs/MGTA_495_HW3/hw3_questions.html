@@ -275,7 +275,7 @@ window.Quarto = {
 <hr>
 <section id="patent-distribution-by-customer-status" class="level3">
 <h3 class="anchored" data-anchor-id="patent-distribution-by-customer-status">Patent Distribution by Customer Status</h3>
-<div id="045758a1" class="cell" data-execution_count="1">
+<div id="08a08d86" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -288,7 +288,7 @@ window.Quarto = {
 </section>
 <section id="region-distribution-by-customer-status" class="level3">
 <h3 class="anchored" data-anchor-id="region-distribution-by-customer-status">Region Distribution by Customer Status</h3>
-<div id="8ce72c8e" class="cell" data-execution_count="2">
+<div id="5e66e268" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
@@ -342,7 +342,7 @@ window.Quarto = {
 </section>
 <section id="firm-age-by-customer-status" class="level3">
 <h3 class="anchored" data-anchor-id="firm-age-by-customer-status">Firm Age by Customer Status</h3>
-<div id="62b269a4" class="cell" data-execution_count="3">
+<div id="fa80748e" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -389,7 +389,7 @@ L(\lambda \mid Y) = \prod_{i=1}^{n} \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}
 <p>The goal of maximum likelihood estimation is to find the value of () that makes the observed patent counts most likely.</p>
 <section id="log-likelihood-function-graph" class="level3">
 <h3 class="anchored" data-anchor-id="log-likelihood-function-graph">Log-likelihood function &amp; graph</h3>
-<div id="bc74f46e" class="cell" data-message="false" data-execution_count="4">
+<div id="170ab6da" class="cell" data-message="false" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -405,7 +405,7 @@ L(\lambda \mid Y) = \prod_{i=1}^{n} \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(<span class="op">-</span>lam <span class="op">+</span> Y <span class="op">*</span> np.log(lam) <span class="op">-</span> gammaln(Y <span class="op">+</span> <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<div id="4c123010" class="cell" data-message="false" data-execution_count="5">
+<div id="52cd0d00" class="cell" data-message="false" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -421,7 +421,7 @@ L(\lambda \mid Y) = \prod_{i=1}^{n} \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}
 <section id="finding-the-mle-numerically" class="level3">
 <h3 class="anchored" data-anchor-id="finding-the-mle-numerically">Finding the MLE Numerically</h3>
 <p>The plot gives us a visual sense of where the best value of () is, but we can also find it directly using numerical optimization. Since <code>scipy.optimize.minimize_scalar()</code> minimizes a function, I minimize the negative log-likelihood, which is the same as maximizing the log-likelihood.</p>
-<div id="6f6a0c72" class="cell" data-execution_count="6">
+<div id="071b572f" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> minimize_scalar(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">lambda</span> lam: <span class="op">-</span>poisson_loglikelihood(lam, Y),</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    bounds<span class="op">=</span>(<span class="fl">0.001</span>, <span class="dv">20</span>),</span>
@@ -492,7 +492,7 @@ Y_i \sim \text{Poisson}(\lambda_i)
 \lambda_i = \exp(X_i\beta)
 \]</span></p>
 <p>The exponential function is important here because (_i) must always be positive. The linear part, (X_i), can be any real number, but after applying (()), the predicted patent rate is guaranteed to stay above zero.</p>
-<div id="abd64d60" class="cell" data-message="false" data-execution_count="7">
+<div id="4c2e1912" class="cell" data-message="false" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
@@ -601,7 +601,7 @@ Y_i \sim \text{Poisson}(\lambda_i)
 </div>
 </div>
 <p>The table above shows the design matrix used for the Poisson regression. It includes an intercept term, firm age, age squared, customer status, and region indicators. The region variables are converted into dummy variables, with one region omitted as the reference group to avoid perfect collinearity. As a result, each region coefficient should be interpreted relative to the omitted baseline region. Including both age and age squared allows the model to capture potential non-linear effects of firm age on patent outcomes, rather than forcing a strictly linear relationship.</p>
-<div id="7005ab02" class="cell" data-message="false" data-execution_count="8">
+<div id="8b7094a8" class="cell" data-message="false" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> poisson_regression_loglikelihood(beta, Y, X):</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    eta <span class="op">=</span> np.clip(X <span class="op">@</span> beta, <span class="op">-</span><span class="dv">20</span>, <span class="dv">20</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    lam <span class="op">=</span> np.exp(eta)</span>
@@ -689,7 +689,7 @@ Y_i \sim \text{Poisson}(\lambda_i)
 </div>
 </div>
 <p>The positive coefficient on <code>iscustomer</code> suggests that Blueprinty customers tend to produce more patents than comparable non-customers, even after controlling for firm age and region. The age terms indicate that patent activity increases with firm age, but at a decreasing rate, meaning the effect of age becomes weaker for more mature firms. The region effects appear relatively small compared to the customer effect, suggesting that location plays a secondary role in explaining patent output. Thus, the results highlight that both firm characteristics and software usage are important in explaining patent outcomes, and simple comparisons would miss these underlying differences.</p>
-<div id="7589ffce" class="cell" data-message="false" data-execution_count="9">
+<div id="66e35ca4" class="cell" data-message="false" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>glm_model <span class="op">=</span> sm.GLM(Y, X, family<span class="op">=</span>sm.families.Poisson())</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>glm_result <span class="op">=</span> glm_model.fit()</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -779,7 +779,7 @@ Y_i \sim \text{Poisson}(\lambda_i)
 </div>
 </div>
 <p>The coefficients obtained from the manual MLE closely match those from the statsmodels GLM, which provides a useful validation of the implementation. The small differences we see are likely due to numerical optimization and how the Hessian is approximated in each method. So, the results are consistent across both approaches, which gives confidence that the model has been correctly specified and estimated.</p>
-<div id="c9e06e4a" class="cell" data-message="false" data-execution_count="10">
+<div id="de5e80e4" class="cell" data-message="false" data-execution_count="10">
 <div class="cell-output cell-output-stdout">
 <pre><code>Customer coefficient: 0.2076
 exp(customer coefficient): 1.2307
@@ -797,7 +797,7 @@ Percent difference: 23.1%</code></pre>
 <li>in the other version, every firm is treated as a Blueprinty customer.</li>
 </ul>
 <p>Then I use the fitted model to predict the expected number of patents in both cases and compare the averages.</p>
-<div id="79ba6ff4" class="cell" data-message="false" data-execution_count="11">
+<div id="6eb8b86f" class="cell" data-message="false" data-execution_count="11">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Copy the design matrix twice</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>X_0 <span class="op">=</span> X_df.copy()</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>X_1 <span class="op">=</span> X_df.copy()</span>
@@ -856,7 +856,7 @@ Percent difference: 23.1%</code></pre>
 </div>
 </div>
 </div>
-<div id="e6f3b03e" class="cell" data-message="false" data-execution_count="12">
+<div id="c02600cb" class="cell" data-message="false" data-execution_count="12">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average predicted patents if all firms are non-customers: </span><span class="sc">{</span>avg_yhat_0<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Average predicted patents if all firms are customers: </span><span class="sc">{</span>avg_yhat_1<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Estimated average effect of Blueprinty customer status: </span><span class="sc">{</span>avg_effect<span class="sc">:.3f}</span><span class="ss"> patents"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
