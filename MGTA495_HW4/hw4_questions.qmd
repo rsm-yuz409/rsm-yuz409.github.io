@@ -322,7 +322,6 @@ mle_result = minimize(
     method="BFGS"
 )
 
-mle_result.success, mle_result.fun
 ```
 
 ```{python}
