@@ -637,6 +637,7 @@ post_draws = draws[burn_in:, :]
 post_draws.shape
 ```
 I discarded the first 25% of the MCMC draws as burn-in so that the remaining draws would better represent the stabilized posterior distribution.
+
 ### Trace Plots
 
 ```{python}
