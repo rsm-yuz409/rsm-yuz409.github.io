@@ -1,32 +1,38 @@
 {
-  "index.qmd": {
-    "index.html": "7fceda73"
+  "MGTA495_FinalPre/Zhao_Yunqing_pca_segmentation.qmd": {
+    "Zhao_Yunqing_pca_segmentation.html": "9f83bdc8"
   },
-  "about.qmd": {
-    "about.html": "00e07902"
-  },
-  "resume.qmd": {
-    "resume.html": "2022e312"
-  },
-  "projects.qmd": {
-    "projects.html": "72832e78"
-  },
-  "projects/project1/index.qmd": {
-    "index.html": "4ebc83fc"
-  },
-  "projects/project2/index.qmd": {
-    "index.html": "56a26641"
-  },
-  "hw1_questions.qmd": {
-    "hw1_questions.html": "215c45ea"
+  "hw5_questions.qmd": {
+    "hw5_questions.html": "c360fb34"
   },
   "hw2_questions.qmd": {
-    "hw2_questions.html": "e9e7bc0d"
+    "hw2_questions.html": "fc44a9c9"
   },
-  "MGTA_495_HW3/hw3_questions.qmd": {
-    "hw3_questions.html": "a8bd78e4"
+  "resume.qmd": {
+    "resume.html": "f7bd8091"
+  },
+  "hw1_questions.qmd": {
+    "hw1_questions.html": "ccd852e0"
+  },
+  "projects/project1/index.qmd": {
+    "index.html": "dfd4dd2e"
+  },
+  "projects/project2/index.qmd": {
+    "index.html": "59205b1d"
   },
   "MGTA495_HW4/hw4_questions.qmd": {
-    "hw4_questions.html": "21303c3f"
+    "hw4_questions.html": "765f3dbe"
+  },
+  "projects.qmd": {
+    "projects.html": "a2cbaf5e"
+  },
+  "index.qmd": {
+    "index.html": "0b8f92d2"
+  },
+  "about.qmd": {
+    "about.html": "958b5638"
+  },
+  "MGTA_495_HW3/hw3_questions.qmd": {
+    "hw3_questions.html": "1b757177"
   }
 }

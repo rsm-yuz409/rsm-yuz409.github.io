@@ -1,0 +1,404 @@
+---
+title: "Key Drivers Analysis"
+author: "Yunqing Zhao"
+date: today
+---
+
+
+
+# Introduction
+
+In this exercise, I explored a customer satisfaction survey and compared several approaches for identifying the factors that have the strongest relationship with overall satisfaction.
+
+Rather than relying on a single metric, I examined six different measures of importance:
+
+- Pearson correlations
+- Standardized regression coefficients
+- Drop-one ("usefulness") importance
+- Shapley / LMG values
+- Johnson's relative weights
+- Random forest importance
+
+Each method measures importance from a slightly different perspective. Comparing them side by side provides a more complete view of which perceptions appear to matter most to customers.
+
+
+# Data Overview
+
+The dataset contains customer satisfaction ratings along with several binary indicators describing customer perceptions of the credit card brand.
+
+```{python}
+#| echo: false
+
+
+import pandas as pd
+
+df = pd.read_csv("data_for_drivers_analysis.csv")
+
+df.head()
+```
+
+
+# Variable Description
+
+```{python}
+#| echo: false
+
+
+drivers = [
+    "trust",
+    "build",
+    "differs",
+    "easy",
+    "appealing",
+    "rewarding",
+    "popular",
+    "service",
+    "impact"
+]
+
+target = "satisfaction"
+
+print("Number of observations:", len(df))
+print("Number of drivers:", len(drivers))
+```
+
+# Pearson Correlations
+
+A simple starting point is to examine the correlation between each perception and overall satisfaction. Variables with stronger positive correlations tend to be associated with higher satisfaction scores.
+
+```{python}
+#| echo: false
+
+
+pearson = df[drivers].corrwith(df[target])
+
+pearson.sort_values(ascending=False)
+```
+
+
+# Standardized Regression Coefficients
+
+Correlations look at each variable individually. A multiple regression model allows all drivers to compete simultaneously for explanatory power.
+
+To make the coefficients directly comparable, all variables were standardized before fitting the model.
+
+```{python}
+#| echo: false
+
+
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import StandardScaler
+import pandas as pd
+
+X = df[drivers]
+y = df[target]
+
+x_scaler = StandardScaler()
+y_scaler = StandardScaler()
+
+X_std = x_scaler.fit_transform(X)
+y_std = y_scaler.fit_transform(
+    y.values.reshape(-1,1)
+).flatten()
+
+reg = LinearRegression()
+reg.fit(X_std,y_std)
+
+beta = pd.Series(
+    reg.coef_,
+    index=drivers
+)
+
+beta.sort_values(ascending=False)
+```
+
+
+# Drop-One Importance
+
+This approach evaluates how much explanatory power is lost when a single variable is removed from the full regression model.
+
+The larger the decrease in model fit, the more useful the variable appears to be.
+
+```{python}
+#| echo: false
+
+
+from sklearn.metrics import r2_score
+
+full_model = LinearRegression()
+full_model.fit(X,y)
+
+full_r2 = r2_score(
+    y,
+    full_model.predict(X)
+)
+
+drop_one = {}
+
+for var in drivers:
+
+    vars_minus = [
+        v for v in drivers
+        if v != var
+    ]
+
+    temp_model = LinearRegression()
+
+    temp_model.fit(
+        df[vars_minus],
+        y
+    )
+
+    r2_minus = r2_score(
+        y,
+        temp_model.predict(
+            df[vars_minus]
+        )
+    )
+
+    drop_one[var] = (
+        full_r2 - r2_minus
+    )
+
+drop_one = pd.Series(drop_one)
+
+drop_one.sort_values(
+    ascending=False
+)
+```
+
+
+# Shapley / LMG Values
+
+Shapley values estimate the contribution of each driver by looking at many different combinations of predictors rather than a single model specification.
+
+This approach is useful when several drivers are related to one another because it helps distribute importance more fairly across variables. For that reason, Shapley values are often used as a benchmark measure in key driver analysis.
+
+```{python}
+#| echo: false
+
+
+from itertools import combinations
+from math import factorial
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import r2_score
+import pandas as pd
+
+# R-squared for any subset of predictors
+def get_r2(features):
+
+    if len(features) == 0:
+        return 0
+
+    model = LinearRegression()
+
+    model.fit(
+        df[list(features)],
+        df[target]
+    )
+
+    return r2_score(
+        df[target],
+        model.predict(df[list(features)])
+    )
+
+# Shapley values
+n = len(drivers)
+
+shapley = {}
+
+for variable in drivers:
+
+    value = 0
+
+    others = [
+        x for x in drivers
+        if x != variable
+    ]
+
+    for k in range(len(others) + 1):
+
+        for subset in combinations(
+            others,
+            k
+        ):
+
+            subset = set(subset)
+
+            weight = (
+                factorial(len(subset))
+                * factorial(
+                    n - len(subset) - 1
+                )
+                / factorial(n)
+            )
+
+            r2_without = get_r2(subset)
+
+            r2_with = get_r2(
+                subset | {variable}
+            )
+
+            value += (
+                weight
+                * (r2_with - r2_without)
+            )
+
+    shapley[variable] = value
+
+shapley = pd.Series(shapley)
+
+shapley.sort_values(
+    ascending=False
+)
+```
+
+
+# Johnson Relative Weights
+
+Johnson's relative weights provide another way to estimate variable importance while accounting for correlations among predictors. This method attempts to separate the unique contribution of each driver and can be useful when several predictors overlap.
+
+The results below summarize the relative weights for each perception.
+
+```{python}
+#| echo: false
+
+
+import numpy as np
+from sklearn.preprocessing import StandardScaler
+
+# Standardize predictors
+X_std = StandardScaler().fit_transform(
+    df[drivers]
+)
+
+# Correlation matrix
+R = np.corrcoef(
+    X_std,
+    rowvar=False
+)
+
+# Eigen decomposition
+eigenvalues, eigenvectors = np.linalg.eig(R)
+
+lambda_matrix = np.diag(
+    np.sqrt(eigenvalues)
+)
+
+# Orthogonal transformation
+L = eigenvectors @ lambda_matrix @ eigenvectors.T
+
+# Correlation between predictors and outcome
+rxy = np.array([
+    np.corrcoef(
+        df[d],
+        df[target]
+    )[0,1]
+    for d in drivers
+])
+
+# Johnson relative weights
+raw_weights = (
+    (L ** 2)
+    @ (
+        np.linalg.pinv(L)
+        @ rxy
+    ) ** 2
+)
+
+johnson = pd.Series(
+    raw_weights,
+    index=drivers
+)
+
+johnson = (
+    johnson
+    / johnson.sum()
+    * 100
+)
+
+johnson.sort_values(
+    ascending=False
+)
+```
+
+# Random Forest Importance
+
+To complement the regression-based approaches, I also fit a random forest model. Variable importance is based on how much each predictor contributes to improving the model across many decision trees.
+
+```{python}
+#| echo: false
+
+
+from sklearn.ensemble import RandomForestRegressor
+
+rf = RandomForestRegressor(
+    n_estimators=500,
+    random_state=42
+)
+
+rf.fit(X, y)
+
+rf_importance = pd.Series(
+    rf.feature_importances_,
+    index=drivers
+)
+
+rf_importance.sort_values(
+    ascending=False
+)
+```
+
+
+# Comparison Across Methods
+
+The table below summarizes the relative importance estimates obtained from each method.
+
+
+```{python}
+#| echo: false
+
+results = pd.DataFrame({
+    "Driver": drivers,
+    "Pearson Correlaion": abs(pearson),
+    "Std Regression": abs(beta),
+    "Drop-One": abs(drop_one),
+    "Shapley Values": abs(shapley),
+    "Johnson's Epilon": abs(johnson),
+    "RF Gini": abs(rf_importance)
+})
+
+# Convert each column to percentage contributions
+for col in results.columns[1:]:
+
+    results[col] = (
+        results[col]
+        / results[col].sum()
+        * 100
+    )
+
+# Sort by Shapley importance
+results = results.sort_values(
+    by="Shapley Values",
+    ascending=False
+)
+
+# Move driver names to the index
+results = results.set_index("Driver")
+
+# Display table
+(
+    results.round(1)
+    .style
+    .format("{:.1f}%")
+    .background_gradient(cmap="Greens")
+)
+```
+
+# Conclusion
+
+Across all methods, three drivers consistently appeared near the top: impact, trust, and service. Although the exact rankings varied from one approach to another, these variables remained among the strongest predictors of customer satisfaction.
+
+The Shapley results were particularly informative because they account for overlap among predictors. Based on this measure, impact was the most influential driver, followed by trust and service. The regression-based approaches led to a very similar conclusion.
+
+Overall, the findings suggest that customers are most satisfied when the card makes a meaningful difference in their lives, comes from a trusted brand, and provides strong customer service. These factors appear to have a larger influence on satisfaction than popularity, rewards, or differentiation from competing cards.

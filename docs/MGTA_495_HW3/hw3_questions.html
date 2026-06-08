@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Yunqing Zhao">
-<meta name="dcterms.date" content="2026-05-24">
+<meta name="dcterms.date" content="2026-06-08">
 
 <title>Poisson Regression and Maximum Likelihood Estimation – Yunqing Zhao</title>
 <style>
@@ -157,6 +157,10 @@ window.Quarto = {
     <a class="dropdown-item" href="../MGTA495_HW4/hw4_questions.html">
  <span class="dropdown-text">HW4 – MaxDiff</span></a>
   </li>  
+        <li>
+    <a class="dropdown-item" href="../hw5_questions.html">
+ <span class="dropdown-text">HW5 – Key Drivers Analysis</span></a>
+  </li>  
     </ul>
   </li>
 </ul>
@@ -217,7 +221,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">May 24, 2026</p>
+      <p class="date">June 8, 2026</p>
     </div>
   </div>
   
@@ -244,7 +248,7 @@ window.Quarto = {
 <hr>
 <section id="patent-distribution-by-customer-status" class="level3">
 <h3 class="anchored" data-anchor-id="patent-distribution-by-customer-status">Patent Distribution by Customer Status</h3>
-<div id="bb5df31d" class="cell" data-execution_count="1">
+<div id="a3ec894a" class="cell" data-execution_count="1">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -257,7 +261,7 @@ window.Quarto = {
 </section>
 <section id="region-distribution-by-customer-status" class="level3">
 <h3 class="anchored" data-anchor-id="region-distribution-by-customer-status">Region Distribution by Customer Status</h3>
-<div id="495c9764" class="cell" data-execution_count="2">
+<div id="f5c10667" class="cell" data-execution_count="2">
 <div class="cell-output cell-output-display" data-execution_count="2">
 <div>
 
@@ -311,7 +315,7 @@ window.Quarto = {
 </section>
 <section id="firm-age-by-customer-status" class="level3">
 <h3 class="anchored" data-anchor-id="firm-age-by-customer-status">Firm Age by Customer Status</h3>
-<div id="420cf631" class="cell" data-execution_count="3">
+<div id="db686d10" class="cell" data-execution_count="3">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -358,7 +362,7 @@ L(\lambda \mid Y) = \prod_{i=1}^{n} \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}
 <p>The goal of maximum likelihood estimation is to find the value of <span class="math inline">\(\lambda\)</span> that makes the observed patent counts most likely.</p>
 <section id="log-likelihood-function-graph" class="level3">
 <h3 class="anchored" data-anchor-id="log-likelihood-function-graph">Log-likelihood function &amp; graph</h3>
-<div id="144abd63" class="cell" data-execution_count="5">
+<div id="4a356472" class="cell" data-execution_count="5">
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -374,7 +378,7 @@ L(\lambda \mid Y) = \prod_{i=1}^{n} \frac{e^{-\lambda}\lambda^{Y_i}}{Y_i!}
 <section id="finding-the-mle-numerically" class="level3">
 <h3 class="anchored" data-anchor-id="finding-the-mle-numerically">Finding the MLE Numerically</h3>
 <p>The plot gives us a visual sense of where the best value of <span class="math inline">\(\lambda\)</span> is, but we can also find it directly using numerical optimization. Since <code>scipy.optimize.minimize_scalar()</code> minimizes a function, I minimize the negative log-likelihood, which is the same as maximizing the log-likelihood.</p>
-<div id="a3fca2ef" class="cell" data-execution_count="6">
+<div id="eeddc8d0" class="cell" data-execution_count="6">
 <div class="cell-output cell-output-stdout">
 <pre><code>Numerical MLE for lambda: 3.6847
 Sample mean of patents: 3.6847</code></pre>
@@ -435,7 +439,7 @@ Y_i \sim \text{Poisson}(\lambda_i)
 \lambda_i = \exp(X_i \beta)
 \]</span></p>
 <p>The exponential function is important here because <span class="math inline">\(\lambda_i\)</span> must always be positive. The linear part, <span class="math inline">\(X_i \beta\)</span>, can be any real number, after applying <span class="math inline">\(\exp(\cdot)\)</span>, the predicted patent rate is guaranteed to stay above zero.</p>
-<div id="57a55d0e" class="cell" data-execution_count="7">
+<div id="a0bddbcb" class="cell" data-execution_count="7">
 <div class="cell-output cell-output-display" data-execution_count="7">
 <div>
 
@@ -519,7 +523,7 @@ Y_i \sim \text{Poisson}(\lambda_i)
 <p>The table above shows the design matrix used for the Poisson regression. It includes an intercept term, firm age, age squared, customer status, and region indicators.</p>
 <p>The region variables are converted into dummy variables, with one region omitted as the reference group to avoid perfect collinearity. As a result, each region coefficient should be interpreted relative to the omitted baseline region.</p>
 <p>Including both age and age squared allows the model to capture potential non-linear effects of firm age on patent outcomes, rather than forcing a strictly linear relationship.</p>
-<div id="72e141c1" class="cell" data-execution_count="8">
+<div id="9e189043" class="cell" data-execution_count="8">
 <div class="cell-output cell-output-display" data-execution_count="8">
 <div>
 
@@ -582,7 +586,7 @@ Y_i \sim \text{Poisson}(\lambda_i)
 <p>The positive coefficient on <code>iscustomer</code> suggests that Blueprinty customers tend to produce more patents than comparable non-customers, even after controlling for firm age and region.</p>
 <p>The age terms indicate that patent activity increases with firm age, but at a decreasing rate, meaning the effect of age becomes weaker for more mature firms.</p>
 <p>The region effects appear relatively small compared to the customer effect, suggesting that location plays a secondary role in explaining patent output. Thus, the results highlight that both firm characteristics and software usage are important in explaining patent outcomes, and simple comparisons would miss these underlying differences.</p>
-<div id="14c5a717" class="cell" data-execution_count="9">
+<div id="65bc0d39" class="cell" data-execution_count="9">
 <div class="cell-output cell-output-display" data-execution_count="9">
 <div>
 
@@ -661,7 +665,7 @@ Y_i \sim \text{Poisson}(\lambda_i)
 </div>
 </div>
 <p>The coefficients obtained from the manual MLE closely match those from the statsmodels GLM, which provides a useful validation of the implementation. The small differences we see are likely due to numerical optimization and how the Hessian is approximated in each method. So, the results are consistent across both approaches, which gives confidence that the model has been correctly specified and estimated.</p>
-<div id="d9275a90" class="cell" data-execution_count="10">
+<div id="433a9bd7" class="cell" data-execution_count="10">
 <div class="cell-output cell-output-stdout">
 <pre><code>Customer coefficient: 0.2076
 exp(customer coefficient): 1.2307
@@ -682,7 +686,7 @@ Percent difference: 23.1%</code></pre>
 <li>in the other version, every firm is treated as a Blueprinty customer.</li>
 </ul>
 <p>Then I use the fitted model to predict the expected number of patents in both cases and compare the averages.</p>
-<div id="13d7d9de" class="cell" data-execution_count="11">
+<div id="2c00859a" class="cell" data-execution_count="11">
 <div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
@@ -712,7 +716,7 @@ Percent difference: 23.1%</code></pre>
 </div>
 </div>
 </div>
-<div id="c1e10f76" class="cell" data-execution_count="12">
+<div id="4027f800" class="cell" data-execution_count="12">
 <div class="cell-output cell-output-stdout">
 <pre><code>Average predicted patents if all firms are non-customers: 3.436
 Average predicted patents if all firms are customers: 4.229

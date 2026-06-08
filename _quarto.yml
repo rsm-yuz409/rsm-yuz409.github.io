@@ -22,6 +22,8 @@ website:
            text: HW3 - MLE
          - href: MGTA495_HW4/hw4_questions.qmd
            text: HW4 -- MaxDiff
+         - href: hw5_questions.qmd
+           text: HW5 -- Key Drivers Analysis
 format:
   html:
     theme:
