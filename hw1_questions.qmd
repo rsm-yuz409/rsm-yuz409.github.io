@@ -8,7 +8,7 @@ date: today
 
 ## Introduction
 
-- On my website, there is a "calls to action" section where visitors can sign up for newsletter.
+- - On my website, there is a "call to action" section where visitors can sign up for a newsletter.
 
 I am interested in whether different language of "calls to action" can influence user behavior. Specifically I want to compare two versions of messages and determine which one can lead to more sign-ups.
 
